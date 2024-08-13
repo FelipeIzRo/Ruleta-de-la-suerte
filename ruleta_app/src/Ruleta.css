@@ -1,0 +1,57 @@
+.plafon{
+    position:relative;
+    margin:10px auto 0;
+    text-align: center;
+    width: 720px;
+}
+.ruleta{
+    width: 500px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    margin: 0 auto 15px;
+}
+.central{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin:auto;
+    width: 170px;
+    top:174px;
+}
+img{
+    width: 100%;
+}
+.barra1{
+    background-color: #444444;
+    width: 250px;
+    height: 20px;
+    border-radius:12px;
+    padding:4px;
+    margin:15px auto 10px;
+}
+.mi_barra{
+    border-radius: 8px;
+    width: 0%;
+    height: 20px;
+    background-color: orange;
+    animation-name:animacionBarra;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-play-state: running;    
+}
+.parate{
+    animation-play-state: paused;
+}
+@keyframes animacionBarra{
+    0%{
+        width: 0%;
+    }
+    50%{
+        width: 100%;
+    }
+    100%{
+        width: 0%;
+    }
+}

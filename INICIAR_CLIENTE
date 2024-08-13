@@ -1,0 +1,7 @@
+INICIAR EL CLIENTE
+cd "D:\Repositorios\RuletaDeLaSuerte\ruleta_app"
+npm start
+
+INICIAR EL SERVIDOR
+cd "D:\Repositorios\RuletaDeLaSuerte"
+node index.js 
