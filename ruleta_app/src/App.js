@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Ruleta from './Ruleta';
+import InputNumero from './InputNumero';
 
 function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('/api/message')
+    fetch('/message')
       .then(response => response.json())
       .then(data => setMessage(data.message))
       .catch(error => console.error('Error:', error));
@@ -14,8 +15,9 @@ function App() {
 
   return (
     <div className="App">
-      <h1>¡Gira la Ruleta!</h1>
-      <Ruleta />
+      <InputNumero/>
+      {/* <h1>¡Gira la Ruleta!</h1>
+      <Ruleta /> */}
     </div>
   );
 }
