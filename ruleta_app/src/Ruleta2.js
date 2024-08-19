@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-
-const socket = io('http://192.168.1.154:5000', {
-    transports: ['polling']
-  });
+const socket = io('http://192.168.0.154:5000');
 
 function Ruleta2() {
   const [resultado, setResultado] = useState(null);

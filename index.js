@@ -10,13 +10,13 @@ const http = require('http');
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000",  // Permitir conexiones desde localhost:3000
+    origin: "*",  // Permitir conexiones desde localhost:3000
     methods: ["GET", "POST"]
   }
 });
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: '*',
   methods: ['GET', 'POST']
 }));
 
