@@ -17,8 +17,9 @@ function Ruleta() {
 
         // Escuchar el evento de rotación de la ruleta
         socketRef.current.on('rotacion-ruleta', (data) => {
-            setRotation(data.rotacion);
-            setPremio(data.premio);
+            // setRotation(data.rotacion);
+            // setPremio(data.premio);
+            girar(data.rotacion);
         });
 
         return () => {
@@ -30,12 +31,19 @@ function Ruleta() {
         barraRef.current.classList.toggle('parate')
         const width2=barraRef.current.getBoundingClientRect().width;
         setAncho(width2)
-        girar()
+        girar(null)
     }
 
-    const girar=()=>{
-        const nuevaRotacion= Math.floor(Math.random()*210)+340;
-        setRotation(rotacion + ancho + nuevaRotacion)
+    const girar=(rotacionEntrada)=>{
+        if (rotacionEntrada == null)
+        {
+            const nuevaRotacion= Math.floor(Math.random()*210)+340;
+            setRotation(rotacion + ancho + nuevaRotacion)
+        }
+        else 
+        {
+            setRotation(rotacionEntrada)
+        }
     }
 
     const final=()=>{

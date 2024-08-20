@@ -49,17 +49,17 @@ app.post('/jugadores', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('Nuevo usuario conectado');
+    console.log('Nuevo usuario conectado');
 
-  // Escuchar cuando un usuario gira la ruleta
-  socket.on('spin-ruleta', (data) => {
-      // Emitir el resultado de la ruleta a todos los usuarios conectados
-      io.emit('rotacion-ruleta', data);
-  });
+    // Escuchar cuando un usuario gira la ruleta
+    socket.on('spin-ruleta', (data) => {
+        // Emitir el resultado de la ruleta a todos los usuarios conectados
+        io.emit('rotacion-ruleta', data);
+    });
 
-  socket.on('disconnect', () => {
-      console.log('Usuario desconectado');
-  });
+    socket.on('disconnect', () => {
+        console.log('Usuario desconectado');
+    });
 });
 
 
