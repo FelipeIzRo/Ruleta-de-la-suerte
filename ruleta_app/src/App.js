@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Ruleta from './Ruleta';
-import Ruleta2 from './Ruleta2';
-import InputNumero from './InputNumero';
+// import Ruleta2 from './Ruleta2';
+// import InputNumero from './InputNumero';
 
 function App() {
   // const [message, setMessage] = useState('');
@@ -18,7 +18,7 @@ function App() {
     <div className="App">
       {/* <InputNumero/> */}
       <h1>¡Gira la Ruleta!</h1>
-      <Ruleta2 />
+      <Ruleta />
     </div>
   );
 }

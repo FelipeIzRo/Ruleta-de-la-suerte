@@ -52,16 +52,13 @@ io.on('connection', (socket) => {
   console.log('Nuevo usuario conectado');
 
   // Escuchar cuando un usuario gira la ruleta
-  socket.on('spin-ruleta', () => {
-    // Generar un resultado aleatorio
-    const resultado = Math.floor(Math.random() * 100) + 1;
-
-    // Enviar el resultado a todos los usuarios conectados
-    io.emit('resultado-ruleta', resultado);
+  socket.on('spin-ruleta', (data) => {
+      // Emitir el resultado de la ruleta a todos los usuarios conectados
+      io.emit('rotacion-ruleta', data);
   });
 
   socket.on('disconnect', () => {
-    console.log('Usuario desconectado');
+      console.log('Usuario desconectado');
   });
 });
 

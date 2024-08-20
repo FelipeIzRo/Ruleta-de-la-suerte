@@ -1,13 +1,30 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './Ruleta.css';
+import io from 'socket.io-client';
 
 function Ruleta() {
     
     const[ancho,setAncho]=useState(1);
     const[rotacion,setRotaton]=useState(0);
     const[premio,setPremio]=useState('Premio');
-    
+
+    const socketRef = useRef(null);    
     const barraRef=useRef(null)
+
+    useEffect(() => {
+        // Conectar al servidor de socket.io
+        socketRef.current = io('http://192.168.0.154:5000');
+
+        // Escuchar el evento de rotación de la ruleta
+        socketRef.current.on('rotacion-ruleta', (data) => {
+            setPremio(data.premio);
+        });
+
+        return () => {
+            socketRef.current.disconnect();  // Desconectar cuando el componente se desmonte
+        };
+    }, []);
+
     const lanzar=()=>{
         barraRef.current.classList.toggle('parate')
         const width2=barraRef.current.getBoundingClientRect().width;
@@ -23,40 +40,47 @@ function Ruleta() {
     const final=()=>{
         barraRef.current.classList.toggle('parate')
         const grados=(rotacion % 360 + 360) % 360;
+        let premio=''
 
         if(grados>=0 && grados <=44)
         {
-            setPremio('Quiebra')
+            premio = 'Quiebra'
         }
         else if (grados>=45 && grados <=90)
         {
-            setPremio('100 puntos')
+            premio = '100 puntos'
         }
         else if (grados>=91 && grados <=135)
         {
-            setPremio('50 puntos')
+            premio = '50 puntos'
         }
         else if (grados>=136 && grados <=179)
         {
-            setPremio('x2')
+            premio = 'x2'
         }
         else if (grados>=180 && grados <=224)
         {
-            setPremio('Pierde Turno')
+            premio = 'Pierde Turno'
         }
         else if (grados>=225 && grados <=269)
         {
-            setPremio('200 puntos')
+            premio = '200 puntos'
         }
         else if (grados>=270 && grados <=314)
         {
-            setPremio('25 puntos')
+            premio = '25 puntos'
         }
         else if (grados>=315 && grados <=359)
         {
-            setPremio('Comodin')
+            premio = 'Comodin'
         }
-        
+
+        setPremio(premio)
+
+        // Emitir el evento de rotación de la ruleta a los demás usuarios
+        socketRef.current.emit('spin-ruleta', {
+            premio: premio
+        });
     }
 
     return (
