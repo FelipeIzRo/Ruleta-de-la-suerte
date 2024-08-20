@@ -5,7 +5,21 @@ const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-app.use(cors());
+const socketIo = require('socket.io');
+const http = require('http');
+const server = http.createServer(app);
+const io = socketIo(server, {
+  cors: {
+    origin: "*",  // Permitir conexiones desde localhost:3000
+    methods: ["GET", "POST"]
+  }
+});
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST']
+}));
+
 app.use(bodyParser.json());
 
 // Configuración de las rutas API
@@ -18,7 +32,10 @@ app.use(express.static(path.join(__dirname, 'ruleta_app/build')));
 
 
 // Iniciar el servidor
-app.listen(PORT, () => {
+// app.listen(PORT, () => {
+//   console.log(`Servidor corriendo en el puerto ${PORT}`);
+// });
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
@@ -30,3 +47,19 @@ app.post('/jugadores', (req, res) => {
   
   res.status(200).send('Formulario recibido');
 });
+
+io.on('connection', (socket) => {
+    console.log('Nuevo usuario conectado');
+
+    // Escuchar cuando un usuario gira la ruleta
+    socket.on('spin-ruleta', (data) => {
+        // Emitir el resultado de la ruleta a todos los usuarios conectados
+        io.emit('rotacion-ruleta', data);
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Usuario desconectado');
+    });
+});
+
+
