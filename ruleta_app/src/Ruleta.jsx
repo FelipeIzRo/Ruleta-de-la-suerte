@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 function Ruleta() {
     
     const[ancho,setAncho]=useState(1);
-    const[rotacion,setRotaton]=useState(0);
+    const[rotacion,setRotation]=useState(0);
     const[premio,setPremio]=useState('Premio');
 
     const socketRef = useRef(null);    
@@ -17,6 +17,7 @@ function Ruleta() {
 
         // Escuchar el evento de rotación de la ruleta
         socketRef.current.on('rotacion-ruleta', (data) => {
+            setRotation(data.rotacion);
             setPremio(data.premio);
         });
 
@@ -34,7 +35,7 @@ function Ruleta() {
 
     const girar=()=>{
         const nuevaRotacion= Math.floor(Math.random()*210)+340;
-        setRotaton(rotacion + ancho + nuevaRotacion)
+        setRotation(rotacion + ancho + nuevaRotacion)
     }
 
     const final=()=>{
@@ -79,6 +80,7 @@ function Ruleta() {
 
         // Emitir el evento de rotación de la ruleta a los demás usuarios
         socketRef.current.emit('spin-ruleta', {
+            rotacion:rotacion,
             premio: premio
         });
     }
