@@ -30,7 +30,7 @@ function NombreJugador (){
             if(response.ok)
             {
                 alert('Formulario enviado correctamente!');
-                navigate('/ruleta');
+                navigate('/ruleta',{state:{nombre: formData.nombre}});
             }
             else
             {

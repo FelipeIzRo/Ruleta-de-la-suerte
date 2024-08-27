@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import './Ruleta.css';
 import io from 'socket.io-client';
+import { useLocation } from 'react-router-dom';
 
 function Ruleta() {
     
@@ -10,6 +11,9 @@ function Ruleta() {
 
     const socketRef = useRef(null);    
     const barraRef=useRef(null)
+
+    const location = useLocation();
+    const { nombre } = location.state || { nombre: 'Desconocido' };
 
     useEffect(() => {
         // Conectar al servidor de socket.io
@@ -95,10 +99,16 @@ function Ruleta() {
 
     return (
     <>
-        <div><h1>¡Gira la Ruleta!</h1></div>
-        <div className="monedas"></div>
+        <div className="puntos"></div>
+        <div className="titulo">
+            <div><h1>¡Gira la Ruleta!</h1></div>
+            <div>{nombre}</div>  
+        </div>
         <div className="tiradas"></div>
-        <div className="plafon">            
+        
+         
+        
+        <div className="plafon">         
             <div className="ruleta"
             style={{
                 backgroundImage:`url('./assets/ruleta.png')`,
