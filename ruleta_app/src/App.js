@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Ruleta from './Ruleta';
-// import Ruleta2 from './Ruleta2';
-// import InputNumero from './InputNumero';
+import NombreJugador from './NombreJugador';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+
 
 function App() {
-  // const [message, setMessage] = useState('');
 
-  // useEffect(() => {
-  //   fetch('/message')
-  //     .then(response => response.json())
-  //     .then(data => setMessage(data.message))
-  //     .catch(error => console.error('Error:', error));
-  // }, []);
+  const [showRuleta, setShowRuleta] = useState(false);
+
+  const handleFormSubmit = () => {
+    console.log('Formulario enviado, cambiando a Ruleta...');
+    setShowRuleta(true); // Cambia a mostrar la Ruleta
+  };
 
   return (
-    <div className="App">
-      {/* <InputNumero/> */}
-      <h1>¡Gira la Ruleta!</h1>
-      <Ruleta />
-    </div>
+    <Router>
+        <Routes>
+            <Route path="/" element={<NombreJugador />} />
+            <Route path="/ruleta" element={<Ruleta />} />
+        </Routes>
+    </Router>
   );
 }
 

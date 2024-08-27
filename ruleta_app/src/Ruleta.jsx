@@ -95,9 +95,10 @@ function Ruleta() {
 
     return (
     <>
+        <div><h1>¡Gira la Ruleta!</h1></div>
         <div className="monedas"></div>
         <div className="tiradas"></div>
-        <div className="plafon">
+        <div className="plafon">            
             <div className="ruleta"
             style={{
                 backgroundImage:`url('./assets/ruleta.png')`,
