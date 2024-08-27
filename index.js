@@ -15,12 +15,18 @@ const io = socketIo(server, {
   }
 });
 
+const playerRoutes = require('./routes/playerRoutes');
+
+app.use(express.json());
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST']
 }));
 
-app.use(bodyParser.json());
+// Registrar las rutas
+app.use('/api', playerRoutes);
+
+
 
 // Configuración de las rutas API
 app.get('/message', (req, res) => {
@@ -39,14 +45,6 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
-app.post('/jugadores', (req, res) => {
-  const { numero } = req.body;
-  console.log('Datos recibidos:', { numero });
-
-  // Aquí podrías agregar la lógica para guardar los datos en una base de datos, etc.
-  
-  res.status(200).send('Formulario recibido');
-});
 
 io.on('connection', (socket) => {
     console.log('Nuevo usuario conectado');
