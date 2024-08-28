@@ -16,6 +16,7 @@ const io = socketIo(server, {
 });
 
 const playerRoutes = require('./routes/playerRoutes');
+const PlayerController = require('./controllers/PlayerController');
 
 app.use(express.json());
 app.use(cors({
@@ -26,21 +27,11 @@ app.use(cors({
 // Registrar las rutas
 app.use('/api', playerRoutes);
 
-
-
-// Configuración de las rutas API
-app.get('/message', (req, res) => {
-  res.json({ message: '¡Hola desde el backend!' });
-});
-
 // Configuración para servir los archivos de React en producción
 app.use(express.static(path.join(__dirname, 'ruleta_app/build')));
 
 
 // Iniciar el servidor
-// app.listen(PORT, () => {
-//   console.log(`Servidor corriendo en el puerto ${PORT}`);
-// });
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
